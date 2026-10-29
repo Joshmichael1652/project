@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b10">
+<title>Your Name — Portfolio</title>
+<style>
+:root{--bg:#0b0b10;--panel:#14141d;--text:#f5f5fa;--muted:#a3a3b5;--accent:#a78bfa;--accent2:#67e8f9;--line:rgba(255,255,255,.11)}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,rgba(124,58,237,.16),transparent 35%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}.wrap{width:min(1100px,90%);margin:auto}
+nav{position:sticky;top:0;z-index:10;background:rgba(11,11,16,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.navinner{height:72px;display:flex;align-items:center;justify-content:space-between}.logo{font-weight:850;letter-spacing:-.04em;font-size:1.2rem}.logo span{color:var(--accent)}
+.links{display:flex;gap:26px;color:var(--muted);font-size:.92rem}.links a:hover{color:white}
+.hero{min-height:82vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:50px;padding:80px 0}
+.eyebrow{color:var(--accent2);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;font-weight:750}
+h1{font-size:clamp(3rem,7vw,5.8rem);line-height:.99;letter-spacing:-.075em;margin:20px 0}
+h1 span{color:var(--accent)}.lead{max-width:560px;color:var(--muted);font-size:1.08rem}
+.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 19px;border-radius:12px;font-weight:750;border:1px solid var(--line);transition:.2s}
+.btn.primary{background:var(--accent);color:#171020;border-color:transparent}.btn:hover{transform:translateY(-3px)}
+.portrait{aspect-ratio:4/5;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(167,139,250,.2),rgba(103,232,249,.06)),var(--panel);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.orb{width:210px;height:210px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));filter:blur(1px);opacity:.9;box-shadow:0 0 90px rgba(167,139,250,.35)}
+.portrait:before,.portrait:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%;width:330px;height:330px}
+.portrait:after{width:440px;height:440px}.portrait-label{position:absolute;bottom:20px;left:20px;background:rgba(10,10,15,.7);border:1px solid var(--line);padding:10px 14px;border-radius:12px;font-size:.86rem}
+section{padding:78px 0}.section-top{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
+h2{font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.055em;line-height:1.1;margin:8px 0}.sub{color:var(--muted);max-width:520px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:20px;padding:24px;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:rgba(167,139,250,.55)}.icon{font-size:1.5rem;margin-bottom:16px}.card h3{margin:0 0 8px;font-size:1.18rem}.card p{margin:0;color:var(--muted);font-size:.94rem}
+.project-visual{height:150px;border-radius:14px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:linear-gradient(135deg,rgba(167,139,250,.25),rgba(103,232,249,.12));border:1px solid var(--line)}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}.tag{font-size:.76rem;color:#d8d3f4;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.2);border-radius:999px;padding:4px 9px}
+.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}.about-panel{padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:20px}.about-panel p{color:var(--muted)}
+.skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.skill{padding:9px 13px;border:1px solid var(--line);border-radius:10px;color:#e7e5f5;background:rgba(255,255,255,.03);font-size:.9rem}
+.contact{background:linear-gradient(135deg,rgba(167,139,250,.13),rgba(103,232,249,.06));border:1px solid var(--line);border-radius:26px;padding:clamp(28px,6vw,60px);text-align:center}
+.contact p{color:var(--muted);max-width:520px;margin:14px auto 24px}.contact .actions{justify-content:center}
+footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.reveal.visible{opacity:1;transform:none}
+@media(max-width:760px){.links{gap:12px;font-size:.82rem}.hero{grid-template-columns:1fr;padding:60px 0;gap:32px}.portrait{max-width:430px;width:100%;margin:auto;aspect-ratio:5/3}.orb{width:145px;height:145px}.cards{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.section-top{display:block}.section-top .sub{margin-top:14px}}
+@media(max-width:420px){.links{gap:9px}.links a{font-size:.76rem}.navinner{height:64px}.logo{font-size:1rem}h1{font-size:3.3rem}}
+</style>
+</head>
+<body>
+<nav><div class="wrap navinner"><a class="logo" href="#home">JOSH<span> JENTALAN</span>.</a><div class="links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div></div></nav>
+<main>
+<div class="wrap hero" id="home">
+  <div class="reveal">
+    <div class="eyebrow">✦ Welcome to my portfolio</div>
+    <h1>Hi, I'm <span>Josh Michael G. Jentalan.</span><br>Creative thinker.</h1>
+    <p class="lead">I'm 18 years old, a student and aspiring creator who enjoys learning new skills, building cool projects, and turning ideas into something real.</p>
+    <div class="actions"><a class="btn primary" href="#projects">Explore my work ↗</a><a class="btn" href="#contact">Get in touch</a></div>
+  </div>
+  <div class="portrait reveal" aria-label="Abstract decorative profile artwork"><div class="orb"></div><div class="portrait-label">✦ Always learning. Always creating.</div></div>
+</div>
+<section id="about"><div class="wrap about-grid">
+  <div class="reveal"><div class="eyebrow">01 / About me</div><h2>A little about<br>who I am.</h2></div>
+  <div class="about-panel reveal"><p>I'm passionate about creativity, technology, and discovering how things work. I like taking on challenges, learning from mistakes, and improving a little every day.</p><p>This portfolio is a place to share my work, interests, and progress. I'm Josh Michael G. Jentalan, 18 years old. This portfolio is a place to share my work, interests, goals, and progress.</p></div>
+</div></section>
+<section id="skills"><div class="wrap"><div class="section-top reveal"><div><div class="eyebrow">02 / What I do</div><h2>My skills & interests</h2></div><p class="sub">A few areas I'm learning and exploring. Edit these to match your real skills.</p></div>
+<div class="cards">
+  <article class="card reveal"><div class="icon">💻</div><h3>Web Development</h3><p>Learning to build clean, responsive websites with HTML, CSS, and JavaScript.</p></article>
+  <article class="card reveal"><div class="icon">🎨</div><h3>Creative Design</h3><p>Exploring layouts, color, typography, and visual ideas that make projects stand out.</p></article>
+  <article class="card reveal"><div class="icon">🎬</div><h3>Content Creation</h3><p>Planning ideas and experimenting with digital content, editing, and storytelling.</p></article>
+</div></div></section>
+<section id="projects"><div class="wrap"><div class="section-top reveal"><div><div class="eyebrow">03 / Selected work</div><h2>Projects I'm proud of</h2></div><p class="sub">Add your own projects here as you create them.</p></div>
+<div class="cards">
+  <article class="card reveal"><div class="project-visual">⌘</div><h3>Personal Website</h3><p>A responsive website to introduce myself and showcase my work.</p><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Design</span></div></article>
+  <article class="card reveal"><div class="project-visual">▦</div><h3>Calculator App</h3><p>A simple calculator concept focused on a clear layout and useful functions.</p><div class="tags"><span class="tag">JavaScript</span><span class="tag">UI</span></div></article>
+  <article class="card reveal"><div class="project-visual">✦</div><h3>Creative Project</h3><p>Use this space to describe a school project, video, design, or another achievement.</p><div class="tags"><span class="tag">Creative</span><span class="tag">Learning</span></div></article>
+</div></div></section>
+<section id="contact"><div class="wrap"><div class="contact reveal"><div class="eyebrow">04 / Let's connect</div><h2>Have an idea? Let's talk.</h2><p>I'm always happy to connect, learn, and explore new opportunities. Add your real email or social profile below.</p><div class="actions"><a class="btn primary" href="mailto:your.email@example.com">Email me ↗</a><a class="btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub ↗</a></div></div></div></section>
+</main>
+<footer><div class="wrap foot"><span>© <span id="year"></span> Josh Michael G. Jentalan. Made with curiosity.</span><a href="#home">Back to top ↑</a></div></footer>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const observer = new IntersectionObserver(entries => entries.forEach(entry => { if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

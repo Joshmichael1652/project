@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #202124;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background: #303134;
+            padding: 20px;
+            border-radius: 15px;
+            width: 280px;
+        }
+
+        #display {
+            width: 100%;
+            box-sizing: border-box;
+            height: 65px;
+            font-size: 28px;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #f1f3f4;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        button {
+            height: 55px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #5f6368;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .operator {
+            background: #f9ab00;
+            color: black;
+        }
+
+        .clear {
+            background: #ea4335;
+        }
+
+        .equal {
+            background: #34a853;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input id="display" value="0" readonly>
+
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+            <button class="operator" onclick="chooseOperator('%')">%</button>
+            <button class="operator" onclick="chooseOperator('/')">÷</button>
+
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="chooseOperator('*')">×</button>
+
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="chooseOperator('-')">−</button>
+
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="chooseOperator('+')">+</button>
+
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button onclick="toggleSign()">±</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById("display");
+
+        let current = "0";
+        let previous = null;
+        let operator = null;
+        let fresh = false;
+
+        function updateDisplay() {
+            display.value = current;
+        }
+
+        function appendNumber(number) {
+            if (fresh) {
+                current = number === "." ? "0." : number;
+                fresh = false;
+            } else if (number === ".") {
+                if (!current.includes(".")) current += ".";
+            } else {
+                current = current === "0" ? number : current + number;
+            }
+            updateDisplay();
+        }
+
+        function chooseOperator(op) {
+            if (operator && !fresh) calculate();
+
+            previous = Number(current);
+            operator = op;
+            fresh = true;
+        }
+
+        function calculate() {
+            if (operator === null || previous === null) return;
+
+            const a = previous;
+            const b = Number(current);
+            let result;
+
+            switch (operator) {
+                case "+": result = a + b; break;
+                case "-": result = a - b; break;
+                case "*": result = a * b; break;
+                case "/":
+                    if (b === 0) {
+                        current = "Cannot divide by zero";
+                        previous = null;
+                        operator = null;
+                        fresh = true;
+                        updateDisplay();
+                        return;
+                    }
+                    result = a / b;
+                    break;
+                case "%": result = a % b; break;
+            }
+
+            current = String(Number(result.toPrecision(12)));
+            previous = null;
+            operator = null;
+            fresh = true;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            current = "0";
+            previous = null;
+            operator = null;
+            fresh = false;
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (fresh || current === "Cannot divide by zero") {
+                current = "0";
+                fresh = false;
+            } else {
+                current = current.length > 1
+                    ? current.slice(0, -1)
+                    : "0";
+            }
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            if (Number(current) !== 0) {
+                current = String(-Number(current));
+                updateDisplay();
+            }
+        }
+    </script>
+
+</body>
+</html>
